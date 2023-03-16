@@ -5,7 +5,23 @@
     <title>Demo app</title>
 </head>
 <body>
-    <div>Strona...</div>
+<div>Main site...</div>
+<br>
+<div>
+    <p>
+        <a th:href="@{/adminPage}" class="btn btn-default">
+            <button type="button">Go to admin page</button>
+        </a>
+    </p>
+</div>
+<br>
+<div>
+    <p>
+        <a th:href="@{/userPage}" class="btn btn-default">
+            <button type="button">Go to user page</button>
+        </a>
+    </p>
+</div>
 </body>
 
 </html>

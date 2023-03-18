@@ -1,6 +1,7 @@
 package com.example.securitywiththymeleaf.configuration;
 
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.nio.file.Path;
 
 @Configuration
 @EnableMethodSecurity
@@ -25,9 +29,28 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable()
-                .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+        http
+                .authorizeHttpRequests()
+                .requestMatchers(PathRequest.toH2Console()).permitAll() // this h2 path is taken form application.properties
+                .anyRequest().authenticated()
+                .and()
+                .csrf()
+                .ignoringRequestMatchers(PathRequest.toH2Console()) //strongly not recommended for production code
+                .and()
+                .headers().frameOptions().sameOrigin()
+                .and()
+//                .httpBasic(Customizer.withDefaults())
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/index")
+                                .permitAll()
+                ).logout(
+                        logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .permitAll()
+                );
+
 
         return http.build();
     }

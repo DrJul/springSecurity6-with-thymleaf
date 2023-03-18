@@ -12,6 +12,11 @@ public class LoginController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @PreAuthorize("hasRole('ADMIN')") // when using @EnableMethodSecurity in SecurityConfig.class
     @GetMapping("/adminPage")
     public String getAdminPage(){

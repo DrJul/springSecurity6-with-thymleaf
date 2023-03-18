@@ -1,5 +1,6 @@
 package com.example.securitywiththymeleaf.controller.webController;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,6 +12,7 @@ public class LoginController {
         return "index";
     }
 
+    @PreAuthorize("hasRole('ADMIN')") // when using @EnableMethodSecurity in SecurityConfig.class
     @GetMapping("/adminPage")
     public String getAdminPage(){
         return "adminPage";

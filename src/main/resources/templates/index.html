@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <title>Demo app</title>
@@ -15,7 +17,8 @@
     </ul>
 </div>
 <br>
-<div>
+<label>When you will be logged as an admin you will see another button here</label>
+<div sec:authorize="hasRole('ADMIN')">
     <p>
         <a th:href="@{/adminPage}" class="btn btn-default">
             <button type="button">Go to admin page</button>

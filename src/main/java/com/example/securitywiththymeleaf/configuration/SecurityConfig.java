@@ -37,8 +37,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 .requestMatchers(PathRequest.toH2Console()).permitAll() // this h2 path is taken form application.properties
-                .requestMatchers("/adminPage").hasAuthority(UserRole.ADMINISTRATOR.getRole()) // watch out 'ROLE_" prefix
                 .requestMatchers("/userPage").hasAnyAuthority(UserRole.DEVELOPER.getRole(),UserRole.ADMINISTRATOR.getRole())
+                .requestMatchers("/adminPage").hasAuthority(UserRole.ADMINISTRATOR.getRole()) // watch out 'ROLE_" prefix
                 .anyRequest().authenticated()
                 .and()
                 .csrf()

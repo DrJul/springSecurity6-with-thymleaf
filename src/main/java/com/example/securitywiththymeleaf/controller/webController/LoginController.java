@@ -17,7 +17,7 @@ public class LoginController {
         return "login";
     }
 
-    @PreAuthorize("hasRole('ADMIN')") // when using @EnableMethodSecurity in SecurityConfig.class
+//    @PreAuthorize("hasRole('ADMIN')") // option when using @EnableMethodSecurity in SecurityConfig.class
     @GetMapping("/adminPage")
     public String getAdminPage(){
         return "adminPage";

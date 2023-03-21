@@ -1,5 +1,7 @@
 package com.example.securitywiththymeleaf.controller.webController;
 
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,11 @@ public class LoginController {
         return "login";
     }
 
-//    @PreAuthorize("hasRole('ADMIN')") // option when using @EnableMethodSecurity in SecurityConfig.class
+    //few different annotiations for authentication / @EnabledMethodSecurity must be added in SpringConfig.class
+//    @PreAuthorize("someMethod()")
+//    @PreAuthorize("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
+//    @RolesAllowed("ADMIN")
     @GetMapping("/adminPage")
     public String getAdminPage(){
         return "adminPage";
